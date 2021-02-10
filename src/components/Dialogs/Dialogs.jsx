@@ -8,25 +8,23 @@ import {
 } from "./../redux/dialogsPageReducer";
 
 const Dialogs = (props) => {
-  let state = props.store.getState().dialogsPage;
-
-  let dialogsElements = state.dialogsData.map((d) => {
+  let dialogsElements = props.dialogsData.map((d) => {
     return <DialogItem name={d.name} id={d.id} />;
   });
 
-  let messagesElements = state.messagesData.map((m) => {
+  let messagesElements = props.messagesData.map((m) => {
     return <Message message={m.message} id={m.id} />;
   });
 
   let newMessageElement = React.createRef();
 
-  let addMessage = () => {
-    props.store.dispatch(addMessageActionCreator());
+  let onAddMessage = () => {
+    props.addMessage();
   };
 
   let onMessageChange = () => {
     let text = newMessageElement.current.value;
-    props.store.dispatch(updateNewMessageTextActionCreator(text));
+    props.updateNewMessageText(text);
   };
 
   return (
@@ -37,12 +35,12 @@ const Dialogs = (props) => {
         <div>
           <textarea
             ref={newMessageElement}
-            value={state.newMessageText}
+            value={props.newMessageText}
             onChange={onMessageChange}
           />
         </div>
         <div>
-          <button onClick={addMessage}>New Message</button>
+          <button onClick={onAddMessage}>New Message</button>
         </div>
       </div>
     </div>

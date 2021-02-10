@@ -3,30 +3,19 @@ import "./App.css";
 import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Profile from "./components/Profile/Profile.jsx";
-import Dialogs from "./components/Dialogs/Dialogs.jsx";
 import { Route } from "react-router-dom";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar state={props.state.navbarPart} />
+      <Navbar />
       <div className="app-wapper-content">
-        <Route
-          path="/dialogs"
-          render={() => (
-            <Dialogs store={props.store} dispatch={props.dispatch} />
-          )}
-        />
-        <Route
-          path="/profile"
-          render={() => (
-            <Profile
-              profilePage={props.state.profilePage}
-              dispatch={props.dispatch}
-            />
-          )}
-        />
+        <Route path="/dialogs" render={() => <DialogsContainer />} />
+        <Route path="/profile" render={() => <Profile />} />
+        <Route path="/users" render={() => <UsersContainer />} />
       </div>
     </div>
   );
